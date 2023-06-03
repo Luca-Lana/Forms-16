@@ -1,0 +1,43 @@
+Primeira forma normal:
+
+Vai exigir que cada coluna tenha valores atômicos e que não  deve conter grupos repetidos e nem atributos com mais de um valor. Ou seja não é interessante
+criar vários campos em uma única tabela para armazenar dados semelhantes ou um campo para receber mais de um valor. 
+Por exemplo, em uma tabela de produtos ao inves de ter vários campos como "fornecedor1", "fornecedor2" ou então um campo "fornecedores" que vai receber mais
+de um fornecedor, é melhor criar uma tabela separada para fornecedores e relacioná-la à tabela de produtos.
+
+Segunda forma normal:
+
+Vai exigir que a tabela respeite a primeira forma normal para poder aplicar a segunda forma normal. A segunda formal normal diz que todas as colunas da tabela 
+deve depender unica e exclusivamente da chave primária da tabela. Por exemplo em uma tabela "Pedidos" que vai ter as seguintes colunas id, cliente_id, 
+nome_cliente, produto, quantidade. A coluna nome_cliente não é totalmente dependente da chave primária dessa tabela, assim essa coluna faz mais sentido estar
+em uma tabela de clientes já que a tabela de pedidos recebe o id do cliente. Então para aplicar a segunda formal normal basta remover essa coluna e passar para
+outra tabela onde ele vai depender apenas da chave primária.
+
+Terceira forma normal:
+
+Vai exigir estar na segunda forma normal para poder aplicar a terceira forma normal. As colunas de uma tabela devem ser igualmente independentes e depender
+unica e exclusivamente da chave primária. Assim para aplicar a terceira forma normal vamos eliminar colunas que não dependem da chave primária.
+Por exemplo, em uma tabela de produtos onde vai existir a coluna id, descrição, categoria e preço, a coluna categoria vai depender da descrição para poder
+atribuir uma categoria ao produto assim essa coluna deve ser movida para uma outra tabela.
+
+Observação: Tome cuidado com a terceira forma normal, pois, embora seja desejável na teoria, pode não ser tão benéfica na prática. Se várias tabelas 
+menores tiverem que ser criadas para aplicar a terceira forma normal, isso pode dificultar a manutenção e degradar o desempenho do banco de dados.
+
+Quarta forma normal:
+
+Chamada de BCNF (Boyce Codd Normal Form), raramente é considerada no design prático. Para utilizar a BCNF, é necessário que o banco esteja na terceira forma normal. 
+A quarta forma normal garante que as tabelas estejam organizadas de maneira mais eficiente, sem redundância, e lida com a dependência entre os atributos da tabela. 
+Por exemplo, em uma tabela de clientes com as colunas "id", "nome" e "endereço", em que o "id" é a chave primária, se houver uma dependência funcional em que o "id" 
+determina o "nome" e o "endereço", a tabela estará na BCNF. No entanto, se a coluna "nome" determinar o "endereço", a dependência funcional não estará na chave primária, 
+e a tabela não estará na BCNF. Para corrigir isso, é necessário dividir a tabela em duas, em que uma contém "id" e "nome" e outra contém "id" e "endereço", permitindo que cada 
+tabela dependa da chave primária.
+
+Quinta forma normal:
+
+A quinta forma normal é a forma normal mais avançada é necessário que o banco esteja na quarta forma normal. Ela é aplicada em situações em que a tabela 
+possui dependências multivaloradas, visando eliminar essas dependencias. Por exemplo, em uma tabela "produto_compra" que possui atributos de produtos, 
+cliente e local de compra, há informações repetidas, já que um cliente pode comprar o mesmo produto várias vezes no mesmo local. Para atingir a quinta 
+forma normal, é necessário dividir essa tabela em duas ou mais tabelas para remover as dependências entre colunas. Nesse caso, podemos criar três tabelas: 
+"Produto", "Cliente" e "Compras". A tabela "Produto" contém informações sobre o produto, a tabela "Cliente" contém informações sobre o cliente, e a tabela 
+"Compras" é a junção dessas informações, com o produto, o cliente e o local da compra. Dessa forma, a tabela mantém as dependências relevantes, sem uma 
+coluna dependendo da outra.
